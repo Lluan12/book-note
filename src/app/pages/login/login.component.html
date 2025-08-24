@@ -1,0 +1,40 @@
+<!--
+  This example requires updating your template:
+
+  ```
+  <html class="h-full bg-gray-900">
+  <body class="h-full">
+  ```
+-->
+<div
+	class="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8 bg-gray-900"
+>
+	<div
+		class="border rounded-md md:mx-auto py-20 md:py-8 md:min-w-[500px] md:min-h-[600px] bg-gray-800/40"
+	>
+		<div class="sm:mx-auto sm:w-full sm:max-w-sm">
+			<img
+				src="img/logo_oscuro.png"
+				alt="Your Company"
+				class="mx-auto h-24 w-auto rounded-full"
+			/>
+			<h2
+				class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white"
+			>
+				Sign in With
+			</h2>
+		</div>
+
+		<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+			<div>
+				<div
+					class="flex items-center justify-center gap-4 py-2.5 rounded-xl hover:cursor-pointer bg-gray-700/70 hover:bg-gray-600"
+					(click)="loginWithGoogle()"
+				>
+					<svg-Google [size]="size" />
+					<strong> Google </strong>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

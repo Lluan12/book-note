@@ -1,0 +1,13 @@
+<div class="flex flex-col h-screen">
+	<header>
+		<app-header />
+	</header>
+	<div class="flex-1 flex">
+		<aside class="border border-white/60 rounded-md shadow-md shadow-white/60 my-2 mx-1">
+			<app-menu />
+		</aside>
+		<main class="flex-1 my-2 mx-1">
+			<router-outlet />
+		</main>
+	</div>
+</div>
