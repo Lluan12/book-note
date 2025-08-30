@@ -33,6 +33,6 @@
 		</a>
 	</ng-template>
 	<ng-template #end>
-		<p-button [icon]="checked ? 'pi pi-sun' : 'pi pi-moon'" (onClick)="toggleDarkMode()" />
+		<p-button [icon]="darkModeService.getDarkMode() ? 'pi pi-moon' : 'pi pi-sun'" (onClick)="darkModeService.toggleToDarkMode()" />
 	</ng-template>
 </p-menubar>

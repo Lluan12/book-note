@@ -1,13 +1,8 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
 	Auth,
-	browserLocalPersistence,
-	getRedirectResult,
 	GoogleAuthProvider,
-	onAuthStateChanged,
-	setPersistence,
 	signInWithPopup,
-	signInWithRedirect,
 	User,
 	UserCredential,
 } from '@angular/fire/auth';

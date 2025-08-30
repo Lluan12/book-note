@@ -1,4 +1,8 @@
-<p-menu [model]="items" class="flex justify-center h-full" styleClass="w-full md:w-60">
+<p-menu
+	[model]="items"
+	class="flex justify-center h-full"
+	styleClass="w-full md:w-60"
+>
 	<ng-template #start>
 		<button
 			pRipple
@@ -9,6 +13,23 @@
 				<span class="font-bold py-1">{{ user?.displayName }}</span>
 			</span>
 		</button>
+		<div class="flex justify-between px-2 gap-x-2 py-4">
+			<div class="flex-1">
+				<p-button
+					label="Nota"
+					icon="pi pi-file-plus"
+					severity="success"
+					fluid="true"
+				/>
+			</div>
+			<p-button
+				rounded="true"
+				[icon]="
+					darkModeService.getDarkMode() ? 'pi pi-moon' : 'pi pi-sun'
+				"
+				(onClick)="darkModeService.toggleToDarkMode()"
+			/>
+		</div>
 	</ng-template>
 	<ng-template #submenuheader let-item>
 		<span class="text-primary font-bold">{{ item.label }}</span>

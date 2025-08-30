@@ -1,0 +1,31 @@
+<section class="h-full">
+	<p-panel header="Libretas" styleClass="text-2xl h-full">
+		<div class="card py-4">
+			<p-toolbar>
+				<ng-template #start>
+					<p-button
+						icon="pi pi-plus"
+						class="mr-2"
+						text
+						severity="secondary"
+					/>
+					<p-button
+						icon="pi pi-print"
+						class="mr-2"
+						text
+						severity="secondary"
+					/>
+					<p-button icon="pi pi-upload" text severity="secondary" />
+				</ng-template>
+				<ng-template #center>
+				</ng-template>
+				<ng-template #end>
+					<p-iconfield iconPosition="left">
+						<p-inputicon class="pi pi-search" />
+						<input type="text" pInputText placeholder="Search" />
+					</p-iconfield>
+				</ng-template>
+			</p-toolbar>
+		</div>
+	</p-panel>
+</section>

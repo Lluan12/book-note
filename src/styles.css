@@ -1,3 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
 @import "primeicons/primeicons.css";
+
+html {
+	@apply bg-slate-200;
+}
+
+.my-app-dark {
+	@apply bg-slate-950;
+}

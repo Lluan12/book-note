@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from "@angular/router";
+import { Component, inject } from '@angular/core';
+import { LoginComponent } from '../../../pages/login/login.component';
+import { DarkModeService } from '../../../shared/services/darkMode.service';
 
 @Component({
-  selector: 'app-auth-layout',
-  imports: [RouterOutlet],
-  templateUrl: './auth-layout.component.html',
+	selector: 'app-auth-layout',
+	imports: [LoginComponent],
+	templateUrl: './auth-layout.component.html',
 })
-export class AuthLayoutComponent { }
+export class AuthLayoutComponent {
+	private darkModeService = inject(DarkModeService);
+	isDark = this.darkModeService.getDarkMode();
+}

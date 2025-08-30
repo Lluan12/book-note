@@ -3,6 +3,7 @@ export interface Notes {
 	title: string;
 	content: string;
 	date: string;
+	tags?: [string]
 }
 
 export type NotesWithoutId = Omit<Notes, 'id'>;

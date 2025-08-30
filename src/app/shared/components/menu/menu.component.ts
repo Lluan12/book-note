@@ -6,19 +6,23 @@ import { RippleModule } from 'primeng/ripple';
 import { AvatarModule } from 'primeng/avatar';
 import { UserAuthenticationService } from '../../services/userAuthentication.service';
 import { Router } from '@angular/router';
+import { Button } from 'primeng/button';
+import { DarkModeService } from '../../services/darkMode.service';
 
 @Component({
 	selector: 'app-menu',
 	templateUrl: './menu.component.html',
-	imports: [MenuModule, BadgeModule, RippleModule, AvatarModule],
+	imports: [MenuModule, BadgeModule, RippleModule, AvatarModule, Button],
 })
 export class MenuComponent implements OnInit {
 	private authService = inject(UserAuthenticationService);
 	private router = inject(Router);
-	user = this.authService.getCurrentUser()
+	darkModeService = inject(DarkModeService);
+	user = this.authService.getCurrentUser();
 	items: MenuItem[] = [];
 
 	ngOnInit() {
+		this.darkModeService.initTheme();
 		this.items = [
 			{
 				separator: true,
@@ -28,14 +32,28 @@ export class MenuComponent implements OnInit {
 					{
 						label: 'Inicio',
 						icon: 'pi pi-home',
+						routerLinkActiveOptions: 'bg-surface-800',
+						command: () => {
+							this.router.navigate(['/home']);
+						},
 					},
 					{
 						label: 'Notas',
 						icon: 'pi pi-pen-to-square',
+						command: () => {
+							this.router.navigate(['/notes']);
+						},
 					},
 					{
 						label: 'Libretas',
 						icon: 'pi pi-book',
+						command: () => {
+							this.router.navigate(["/books"])
+						}
+					},
+					{
+						label: 'Etiquetas',
+						icon: 'pi pi-tags',
 					},
 				],
 			},

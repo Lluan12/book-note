@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { AvatarModule } from 'primeng/avatar';
@@ -9,6 +9,7 @@ import { Ripple } from 'primeng/ripple';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 import { Button } from 'primeng/button';
+import { DarkModeService } from '../../services/darkMode.service';
 
 @Component({
 	selector: 'app-header',
@@ -27,13 +28,14 @@ import { Button } from 'primeng/button';
 })
 export class HeaderComponent implements OnInit {
 	items: MenuItem[] = [];
-	checked: boolean = true;
+	darkModeService = inject(DarkModeService);
 
 	ngOnInit() {
+		this.darkModeService.initTheme();
 		this.items = [
 			{
-				label: 'Home',
-				icon: 'pi pi-copy',
+				label: 'Inicio',
+				icon: 'pi pi-home',
 			},
 			{
 				label: 'Archivo',
@@ -41,16 +43,16 @@ export class HeaderComponent implements OnInit {
 					{
 						label: 'Nota nueva',
 						icon: 'pi pi-bolt',
-						shortcut: 'Ctrl+N',
+						//shortcut: 'Ctrl+N',
 					},
 					{
 						label: 'Nueva libreta',
 						icon: 'pi pi-server',
-						shortcut: 'Alt+Shift+N',
+						//shortcut: 'Alt+Shift+N',
 					},
 				],
 			},
-			{
+			/* {
 				label: 'Editar',
 				icon: 'pi pi-search',
 				items: [
@@ -90,13 +92,7 @@ export class HeaderComponent implements OnInit {
 						shortcut: 'Ctrl+A',
 					},
 				],
-			},
+			}, */
 		];
-	}
-
-	toggleDarkMode(): void {
-		this.checked = !this.checked;
-		const element = document.querySelector('html');
-		element!.classList.toggle('my-app-dark');
 	}
 }
