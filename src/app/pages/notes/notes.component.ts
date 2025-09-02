@@ -28,7 +28,6 @@ import { BadgeModule } from 'primeng/badge';
     BadgeModule,
 ],
 	templateUrl: './notes.component.html',
-	styleUrl: './notes.component.css'
 })
 export class NotesComponent implements OnInit {
 	breadcrumbItems: MenuItem[] | undefined;

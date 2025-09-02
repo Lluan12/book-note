@@ -51,10 +51,6 @@ export class MenuComponent implements OnInit {
 							this.router.navigate(["/books"])
 						}
 					},
-					{
-						label: 'Etiquetas',
-						icon: 'pi pi-tags',
-					},
 				],
 			},
 			{

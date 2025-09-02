@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { GoogleComponent } from './components/google.component';
 import { UserAuthenticationService } from '../../shared/services/userAuthentication.service';
 import { Router } from '@angular/router';
 import { Button } from 'primeng/button';
@@ -10,7 +9,7 @@ import { NgClass } from '@angular/common';
 	templateUrl: './login.component.html',
 	selector: 'app-login',
 	providers: [],
-	imports: [GoogleComponent, Button, NgClass],
+	imports: [Button, NgClass],
 })
 export class LoginComponent implements OnInit {
 	darkModeService = inject(DarkModeService);

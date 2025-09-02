@@ -1,6 +1,27 @@
 <section class="h-full">
 	<p-panel [header]="'Home de ' + user" styleClass="text-2xl">
 		<p class="text-lg">Notas</p>
-		<app-carrusel-recent />
+		<div>
+			<p-carousel
+				[value]="recentNotes"
+				[circular]="false"
+				[responsiveOptions]="responsiveOptions"
+				contentClass="max-w-full"
+			>
+				<ng-template let-note #item>
+					<div
+						class="flex flex-col justify-between border border-surface rounded-md m-2 p-4 min-h-96"
+					>
+						<div class="text-2xl font-semibold">
+							{{ note.title }}
+						</div>
+						<div class="my-4 text-lg">
+							{{ note.content }}
+						</div>
+						<div class="text-sm font-light">{{ note.date }}</div>
+					</div>
+				</ng-template>
+			</p-carousel>
+		</div>
 	</p-panel>
 </section>

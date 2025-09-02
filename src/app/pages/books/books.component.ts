@@ -6,6 +6,15 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import {
+	TableModule,
+	Table,
+	TableRowCollapseEvent,
+	TableRowExpandEvent,
+} from 'primeng/table';
 
 @Component({
 	selector: 'app-books',
@@ -16,13 +25,35 @@ import { MenuItem } from 'primeng/api';
 		IconFieldModule,
 		InputIconModule,
 		MenuModule,
+		FloatLabelModule,
+		FormsModule,
+		TableModule,
+		InputTextModule
 	],
 	templateUrl: './books.component.html',
 })
 export class BooksComponent implements OnInit {
 	sortItems: MenuItem[] | undefined;
+	value2 = '';
+	menuItems: MenuItem[] | undefined;
+	products: any = [];
+	expandedRows = {};
 
 	ngOnInit() {
+		this.menuItems = [
+			{ label: 'Renombrar libreta', icon: 'pi pi-pencil' },
+			{ label: 'Eliminar libreta', icon: 'pi pi-trash' },
+		];
+
+		this.products = [
+			{
+				code: 1,
+				name: 'Juan',
+				category: 'planchar',
+				quantity: 3,
+			},
+		];
+
 		this.sortItems = [
 			{
 				label: 'Ordenar por',
@@ -34,4 +65,7 @@ export class BooksComponent implements OnInit {
 			},
 		];
 	}
+	onRowExpand(event: TableRowExpandEvent) {}
+
+	onRowCollapse(event: TableRowCollapseEvent) {}
 }

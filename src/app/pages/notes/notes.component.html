@@ -1,11 +1,14 @@
 <section class="h-full">
-	<p-splitter [panelSizes]="[20, 80]">
+	<p-splitter [panelSizes]="[30, 70]">
 		<ng-template #panel>
 			<div class="flex flex-col">
 				<div class="px-4 py-4 h-32">
 					<div class="flex gap-x-2 items-end">
 						<h2 class="text-2xl font-bold">Notas</h2>
-						<p-badge [value]="recentNotes.length" badgeSize="small" />
+						<p-badge
+							[value]="recentNotes.length"
+							badgeSize="small"
+						/>
 					</div>
 					<div class="flex justify-end">
 						<div>
@@ -25,7 +28,7 @@
 					</div>
 				</div>
 				<p-scroll-panel
-					[style]="{ width: '100%', height: 'calc(100vh - 130px)' }"
+					[style]="{ width: '100%', height: 'calc(100vh - 100px)' }"
 				>
 					@for(note of recentNotes; track note.id) {
 					<p-card
@@ -33,7 +36,7 @@
 						(onclick)="changeSelection(note.id)"
 					>
 						<ng-template #title> {{ note.title }} </ng-template>
-						<p class="text-sm">
+						<p class="text-sm line-clamp-2">
 							{{ note.content }}
 						</p>
 						<ng-template #footer>
@@ -48,8 +51,8 @@
 			</div>
 		</ng-template>
 		<ng-template #panel>
-			<div class="flex flex-col h-full w-full gap-8">
-				<div class="card flex justify-between">
+			<div class="flex flex-col h-full w-full">
+				<div class="card flex justify-between py-1">
 					<p-breadcrumb [model]="breadcrumbItems" />
 
 					<div>
@@ -66,8 +69,10 @@
 				<div class="flex-1">
 					<app-editor />
 				</div>
-				<p-divider />
-				<div></div>
+				<div>
+					<p-divider />
+					<div></div>
+				</div>
 			</div>
 		</ng-template>
 	</p-splitter>

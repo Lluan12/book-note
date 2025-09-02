@@ -1,31 +1,177 @@
 <section class="h-full">
 	<p-panel header="Libretas" styleClass="text-2xl h-full">
-		<div class="card py-4">
-			<p-toolbar>
-				<ng-template #start>
-					<p-button
-						icon="pi pi-plus"
-						class="mr-2"
-						text
-						severity="secondary"
+		<div class="card py-4 flex justify-end gap-x-4">
+			<div>
+				<p-menu #menuSort [model]="sortItems" [popup]="true" />
+				<p-button
+					[text]="true"
+					(click)="menuSort.toggle($event)"
+					icon="pi pi-sort-amount-down"
+					pTooltip="Opciones de clasificacion"
+					tooltipStyleClass="text-sm"
+				/>
+			</div>
+			<p-floatlabel variant="in">
+				<p-iconfield>
+					<p-inputicon class="pi pi-search" />
+					<input
+						pInputText
+						id="search"
+						[(ngModel)]="value2"
+						autocomplete="off"
 					/>
-					<p-button
-						icon="pi pi-print"
-						class="mr-2"
-						text
-						severity="secondary"
-					/>
-					<p-button icon="pi pi-upload" text severity="secondary" />
+				</p-iconfield>
+				<label for="search" class="text-lg">Search</label>
+			</p-floatlabel>
+		</div>
+
+		<div class="card">
+			<p-table
+				[value]="products"
+				dataKey="id"
+				[tableStyle]="{ 'min-width': '60rem' }"
+				[expandedRowKeys]="expandedRows"
+				(onRowExpand)="onRowExpand($event)"
+				(onRowCollapse)="onRowCollapse($event)"
+				[paginator]="true"
+				[loading]="true"
+				[rows]="5"
+			>
+				<ng-template #caption>
+					<div class="flex">
+						<p-iconfield iconPosition="left" class="ml-auto">
+							<p-inputicon>
+								<i class="pi pi-search"></i>
+							</p-inputicon>
+							<!-- <input
+								#dt2
+								pInputText
+								type="text"
+								(input)="
+									dt2.filterGlobal(
+										$event.target.value,
+										'contains'
+									)
+								"
+								placeholder="Search keyword"
+							/> -->
+						</p-iconfield>
+					</div>
 				</ng-template>
-				<ng-template #center>
+				<ng-template #header>
+					<tr>
+						<th style="width: 5rem"></th>
+						<th>Titulo</th>
+						<th>Actualizado</th>
+						<th>Creado</th>
+						<th>Acciones</th>
+					</tr>
 				</ng-template>
-				<ng-template #end>
-					<p-iconfield iconPosition="left">
-						<p-inputicon class="pi pi-search" />
-						<input type="text" pInputText placeholder="Search" />
-					</p-iconfield>
+				<ng-template #body let-product let-expanded="expanded">
+					<tr>
+						<td>
+							<p-button
+								type="button"
+								pRipple
+								[pRowToggler]="product"
+								[text]="true"
+								severity="secondary"
+								[rounded]="true"
+								[icon]="
+									expanded
+										? 'pi pi-chevron-down'
+										: 'pi pi-chevron-right'
+								"
+							/>
+						</td>
+						<td>{{ product.name }}</td>
+						<td>{{ product.quantity }}</td>
+						<td>{{ product.category }}</td>
+						<td></td>
+					</tr>
 				</ng-template>
-			</p-toolbar>
+				<ng-template #expandedrow let-product>
+					<tr>
+						<td colspan="7">
+							<div class="p-4">
+								<h5>Orders for {{ product.name }}</h5>
+								<p-table [value]="product.orders" dataKey="id">
+									<ng-template #header>
+										<tr>
+											<th pSortableColumn="id">
+												<div
+													class="flex items-center gap-2"
+												>
+													Id
+													<p-sortIcon field="price" />
+												</div>
+											</th>
+											<th pSortableColumn="customer">
+												<div
+													class="flex items-center gap-2"
+												>
+													Customer
+													<p-sortIcon
+														field="customer"
+													/>
+												</div>
+											</th>
+											<th pSortableColumn="date">
+												<div
+													class="flex items-center gap-2"
+												>
+													Date
+													<p-sortIcon field="date" />
+												</div>
+											</th>
+											<th pSortableColumn="amount">
+												<div
+													class="flex items-center gap-2"
+												>
+													Amount
+													<p-sortIcon
+														field="amount"
+													/>
+												</div>
+											</th>
+											<th pSortableColumn="status">
+												<div
+													class="flex items-center gap-2"
+												>
+													Status
+													<p-sortIcon
+														field="status"
+													/>
+												</div>
+											</th>
+											<th style="width: 4rem"></th>
+										</tr>
+									</ng-template>
+									<ng-template #body let-order>
+										<tr>
+											<td>{{ order.id }}</td>
+											<td>{{ order.customer }}</td>
+											<td>{{ order.date }}</td>
+											<td></td>
+											<td>
+												<p-button
+													type="button"
+													icon="pi pi-search"
+												/>
+											</td>
+										</tr>
+									</ng-template>
+									<ng-template #emptymessage>
+										<tr>
+											<td colspan="6">NO HAY LIBRETAS</td>
+										</tr>
+									</ng-template>
+								</p-table>
+							</div>
+						</td>
+					</tr>
+				</ng-template>
+			</p-table>
 		</div>
 	</p-panel>
 </section>

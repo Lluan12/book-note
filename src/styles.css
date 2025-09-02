@@ -4,6 +4,7 @@
 
 html {
 	@apply bg-slate-200;
+	font-size: 12px
 }
 
 .my-app-dark {
