@@ -1,8 +1,8 @@
 <section class="h-full">
-	<p-splitter [panelSizes]="[30, 70]">
+	<p-splitter [panelSizes]="[25, 75]">
 		<ng-template #panel>
-			<div class="flex flex-col">
-				<div class="px-4 py-4 h-32">
+			<div class="flex flex-col w-full">
+				<div class="px-4 py-8 h-32">
 					<div class="flex gap-x-2 items-end">
 						<h2 class="text-2xl font-bold">Notas</h2>
 						<p-badge
@@ -31,20 +31,27 @@
 					[style]="{ width: '100%', height: 'calc(100vh - 100px)' }"
 				>
 					@for(note of recentNotes; track note.id) {
-					<p-card
-						styleClass="overflow-hidden border-b cursor-pointer"
-						(onclick)="changeSelection(note.id)"
+					<div
+						class="flex flex-col gap-y-4 py-8 px-6 border-b rounded-xl overflow-hidden cursor-pointer"
+						[ngClass]="
+							darkMode.getDarkMode()
+								? selected == note.id
+									? 'bg-slate-700 '
+									: 'hover:bg-slate-700'
+								: selected == note.id
+								? 'bg-slate-200'
+								: 'hover:bg-slate-200'
+						"
+						(click)="changeSelection(note.id)"
 					>
-						<ng-template #title> {{ note.title }} </ng-template>
-						<p class="text-sm line-clamp-2">
+						<h3 class="text-xl font-bold">{{ note.title }}</h3>
+						<p class="text-lg line-clamp-2">
 							{{ note.content }}
 						</p>
-						<ng-template #footer>
-							<p class="font-extralight text-[12px]">
-								{{ note.date }}
-							</p>
-						</ng-template>
-					</p-card>
+						<p class="font-extralight text-sm">
+							{{ note.updated }}
+						</p>
+					</div>
 
 					}
 				</p-scroll-panel>
@@ -66,8 +73,23 @@
 						/>
 					</div>
 				</div>
+				<div class="py-4">
+					<p-floatlabel variant="on">
+						<input
+							pInputText
+							id="titulo"
+							[(ngModel)]="title"
+							autocomplete="off"
+							class="h-12 text-lg px-4 w-full border-2 rounded-md"
+						/>
+						<label for="titulo">Titulo</label>
+					</p-floatlabel>
+				</div>
 				<div class="flex-1">
-					<app-editor />
+					<p-editor
+						[(ngModel)]="content"
+						[style]="{ height: 'calc(100vh - 180px)' }"
+					/>
 				</div>
 				<div>
 					<p-divider />

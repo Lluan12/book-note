@@ -1,7 +1,7 @@
 <p-menu
 	[model]="items"
 	class="flex justify-center h-full"
-	styleClass="w-full"
+	styleClass="md:w-60 w-full md:text-lg"
 >
 	<ng-template #start>
 		<button
@@ -20,6 +20,7 @@
 					icon="pi pi-file-plus"
 					severity="success"
 					fluid="true"
+					(onClick)="openNew()"
 				/>
 			</div>
 			<p-button

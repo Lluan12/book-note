@@ -57,6 +57,7 @@ const MyPreset = definePreset(Aura, {
 					950: '{stone.950}',
 				},
 				primary: {
+					contrastColor: '',
 					50: '{rose.50}',
 					100: '{rose.100}',
 					200: '{rose.200}',

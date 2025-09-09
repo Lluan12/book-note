@@ -9,11 +9,13 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { routes } from './app.routes';
 import { environment } from '../environments/environment.development';
 import MyPreset from './shared/myPreset';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
 		provideZoneChangeDetection({ eventCoalescing: true }),
 		provideRouter(routes),
+		provideHttpClient(withFetch()),
 		provideAnimationsAsync(),
 		providePrimeNG({
 			theme: {

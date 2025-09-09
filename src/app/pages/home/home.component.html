@@ -6,11 +6,13 @@
 				[value]="recentNotes"
 				[circular]="false"
 				[responsiveOptions]="responsiveOptions"
+				[numVisible]="5"
 				contentClass="max-w-full"
 			>
 				<ng-template let-note #item>
 					<div
-						class="flex flex-col justify-between border border-surface rounded-md m-2 p-4 min-h-96"
+						class="flex flex-col justify-between border border-surface rounded-md m-2 p-4 min-h-96 cursor-pointer"
+						[ngClass]="darkMode.getDarkMode() ? 'hover:bg-slate-700': 'hover:bg-slate-200'"
 					>
 						<div class="text-2xl font-semibold">
 							{{ note.title }}
@@ -18,7 +20,7 @@
 						<div class="my-4 text-lg">
 							{{ note.content }}
 						</div>
-						<div class="text-sm font-light">{{ note.date }}</div>
+						<div class="text-sm font-light">{{ note.updated | date:'dd/MM/yyyy' }}</div>
 					</div>
 				</ng-template>
 			</p-carousel>

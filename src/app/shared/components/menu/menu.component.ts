@@ -70,6 +70,10 @@ export class MenuComponent implements OnInit {
 			},
 		];
 	}
+	openNew() {
+
+		this.router.navigate(['/notes']);
+	}
 
 	async logout() {
 		try {

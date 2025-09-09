@@ -1,32 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { SplitterModule } from 'primeng/splitter';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { MenuItem } from 'primeng/api';
-import { EditorComponent } from '../../shared/components/editor/editor.component';
 import { Notes } from '../../shared/models/notes.model';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
-import data from '../../../../public/data/data.json';
 import { Menu } from 'primeng/menu';
 import { Button } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { BadgeModule } from 'primeng/badge';
+import { FloatLabel } from 'primeng/floatlabel';
+import { FormsModule } from '@angular/forms';
+import { NgClass } from '@angular/common';
+import { DarkModeService } from '../../shared/services/darkMode.service';
+import { EditorModule } from 'primeng/editor';
+import { InputTextModule } from 'primeng/inputtext';
+import data from '../../../../public/data/data.json';
 
 @Component({
 	selector: 'app-notes',
 	imports: [
-    SplitterModule,
-    BreadcrumbModule,
-    EditorComponent,
-    CardModule,
-    DividerModule,
-    ScrollPanelModule,
-    Menu,
-    Button,
-    TooltipModule,
-    BadgeModule,
-],
+		SplitterModule,
+		BreadcrumbModule,
+		CardModule,
+		DividerModule,
+		ScrollPanelModule,
+		Menu,
+		Button,
+		TooltipModule,
+		BadgeModule,
+		FloatLabel,
+		FormsModule,
+		NgClass,
+		EditorModule,
+		InputTextModule,
+	],
 	templateUrl: './notes.component.html',
 })
 export class NotesComponent implements OnInit {
@@ -34,8 +43,12 @@ export class NotesComponent implements OnInit {
 	menuItems: MenuItem[] | undefined;
 	sortItems: MenuItem[] | undefined;
 	recentNotes: Notes[] = data;
-	selected: number = 1;
+	selectedNote: Notes = data[0];
+	selected: number = data[0].id;
 	home: MenuItem | undefined;
+	title = '';
+	content = '';
+	darkMode = inject(DarkModeService);
 
 	ngOnInit() {
 		this.menuItems = [
@@ -56,12 +69,49 @@ export class NotesComponent implements OnInit {
 			},
 		];
 
-		this.breadcrumbItems = [
-			{ label: 'Electronics', icon: 'pi pi-book' },
-			{ label: 'Computer', icon: 'pi pi-pen-to-square' },
-		];
+		this.changeBreadCrumbItems();
 	}
 	changeSelection(id: number): void {
 		this.selected = id;
+		const newNote = data.find((note) => note.id == id);
+		if (newNote) {
+			this.selectedNote = newNote;
+			this.initializateField();
+			this.changeBreadCrumbItems();
+		}
 	}
+
+	initializateField(): void {
+		this.title = this.selectedNote.title;
+		this.content = this.selectedNote.content;
+	}
+
+	changeBreadCrumbItems() {
+		this.breadcrumbItems = [
+			{
+				label: this.selectedNote.book
+					? this.selectedNote.book
+					: 'Primera Libreta',
+				icon: 'pi pi-book',
+			},
+			{ label: this.selectedNote.title, icon: 'pi pi-pen-to-square' },
+		];
+	}
+
+	saveNote() {
+
+	}
+
+	moveNote() {
+
+	}
+
+	duplicateNote() {
+
+	}
+
+	deleteNote() {
+		
+	}
+
 }
