@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { Book } from '../models/books.model';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { User } from '@angular/fire/auth';
 
 @Injectable({
 	providedIn: 'root',
@@ -12,8 +13,9 @@ export class BookService {
 
 	constructor(private http: HttpClient) {}
 
-	getBooks() {
-		return this.http.get<Book[]>(`${this.apiUrl}/books`);
+	getBooks(user: User) {
+		const autor = user.uid
+		return this.http.get<Book[]>(`${this.apiUrl}/books/${autor}`);
 	}
 
 	createBook(book: Book) {
@@ -28,8 +30,9 @@ export class BookService {
 		return this.http.delete<Book>(`${this.apiUrl}/books/${id}`);
 	}
 
-	verifyFirstLibreta() {
-		return this.http.get(`${this.apiUrl}/verify/FirstLibreta`);
+	verifyFirstLibreta(user: User) {
+		const autor = user.uid
+		return this.http.get(`${this.apiUrl}/verify/FirstLibreta/${autor}`);
 	}
 
 }

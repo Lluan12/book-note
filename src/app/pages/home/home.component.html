@@ -1,9 +1,15 @@
 <section class="h-full">
 	<p-panel [header]="'Home de ' + user" styleClass="text-2xl">
 		<p class="text-lg">Notas</p>
+		@if(isData) { @if(recentNotes().length == 0) {
+		<div class="flex flex-col gap-y-8 items-center justify-center min-h-96">
+			<h2 class="text-3xl">No tiene notas guardadas inicie escribiendo una...</h2>
+			<p-button label="Agregar nota" icon="pi pi-plus" severity="contrast" (onClick)="addNote()" /> 
+		</div>
+		} @else {
 		<div>
 			<p-carousel
-				[value]="recentNotes"
+				[value]="recentNotes()"
 				[circular]="false"
 				[responsiveOptions]="responsiveOptions"
 				[numVisible]="5"
@@ -12,7 +18,12 @@
 				<ng-template let-note #item>
 					<div
 						class="flex flex-col justify-between border border-surface rounded-md m-2 p-4 min-h-96 cursor-pointer"
-						[ngClass]="darkMode.getDarkMode() ? 'hover:bg-slate-700': 'hover:bg-slate-200'"
+						(click)="openNote(note._id)"
+						[ngClass]="
+							darkMode.getDarkMode()
+								? 'hover:bg-slate-700'
+								: 'hover:bg-slate-200'
+						"
 					>
 						<div class="text-2xl font-semibold">
 							{{ note.title }}
@@ -20,10 +31,17 @@
 						<div class="my-4 text-lg">
 							{{ note.content }}
 						</div>
-						<div class="text-sm font-light">{{ note.updated | date:'dd/MM/yyyy' }}</div>
+						<div class="text-sm font-light">
+							{{ note.updated | date : "dd/MM/yyyy" }}
+						</div>
 					</div>
 				</ng-template>
 			</p-carousel>
 		</div>
+		} } @else {
+		<div class="flex justify-center items-center min-h-96">
+			<p-progress-spinner ariaLabel="loading" />
+		</div>
+		}
 	</p-panel>
 </section>

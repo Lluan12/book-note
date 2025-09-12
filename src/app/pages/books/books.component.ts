@@ -78,7 +78,7 @@ export class BooksComponent implements OnInit {
 				title: 'Primera Libreta',
 				created: new Date(),
 				updated: new Date(),
-				notes: data
+				//notes: data
 			},
 		];
 

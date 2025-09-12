@@ -6,7 +6,7 @@
 					<div class="flex gap-x-2 items-end">
 						<h2 class="text-2xl font-bold">Notas</h2>
 						<p-badge
-							[value]="recentNotes.length"
+							[value]="notesService.recentNotes().length"
 							badgeSize="small"
 						/>
 					</div>
@@ -30,26 +30,26 @@
 				<p-scroll-panel
 					[style]="{ width: '100%', height: 'calc(100vh - 100px)' }"
 				>
-					@for(note of recentNotes; track note.id) {
+					@for(note of notesService.recentNotes(); track note._id) {
 					<div
 						class="flex flex-col gap-y-4 py-8 px-6 border-b rounded-xl overflow-hidden cursor-pointer"
 						[ngClass]="
 							darkMode.getDarkMode()
-								? selected == note.id
+								? selected() == note._id
 									? 'bg-slate-700 '
 									: 'hover:bg-slate-700'
-								: selected == note.id
+								: selected() == note._id
 								? 'bg-slate-200'
 								: 'hover:bg-slate-200'
 						"
-						(click)="changeSelection(note.id)"
+						(click)="changeSelection(note._id)"
 					>
 						<h3 class="text-xl font-bold">{{ note.title }}</h3>
 						<p class="text-lg line-clamp-2">
 							{{ note.content }}
 						</p>
 						<p class="font-extralight text-sm">
-							{{ note.updated }}
+							{{ note.updated | date : "dd/MM/yyyy" }}
 						</p>
 					</div>
 
@@ -98,4 +98,18 @@
 			</div>
 		</ng-template>
 	</p-splitter>
+	<p-toast position="bottom-center" [baseZIndex]="5000" />
+	<p-confirm-popup>
+		<ng-template #message let-message>
+			<div
+				class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700"
+			>
+				<i
+					[ngClass]="message.icon"
+					class="!text-6xl text-primary-500"
+				></i>
+				<p>{{ message.message }}</p>
+			</div>
+		</ng-template>
+	</p-confirm-popup>
 </section>

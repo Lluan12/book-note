@@ -6,5 +6,5 @@ export interface Book {
 	created?: Date;
 	updated?: Date;
 	autor?: String;
-	notes?: Notes[];
+	//notes?: Notes[];
 }

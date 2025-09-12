@@ -8,6 +8,8 @@ import { UserAuthenticationService } from '../../services/userAuthentication.ser
 import { Router } from '@angular/router';
 import { Button } from 'primeng/button';
 import { DarkModeService } from '../../services/darkMode.service';
+import { NotesWithoutId } from '../../models/notes.model';
+import { NotesService } from '../../services/notes.service';
 
 @Component({
 	selector: 'app-menu',
@@ -16,6 +18,7 @@ import { DarkModeService } from '../../services/darkMode.service';
 })
 export class MenuComponent implements OnInit {
 	private authService = inject(UserAuthenticationService);
+	private notesService = inject(NotesService);
 	private router = inject(Router);
 	darkModeService = inject(DarkModeService);
 	user = this.authService.getCurrentUser();
@@ -44,13 +47,13 @@ export class MenuComponent implements OnInit {
 							this.router.navigate(['/notes']);
 						},
 					},
-					{
+					/* {
 						label: 'Libretas',
 						icon: 'pi pi-book',
 						command: () => {
 							this.router.navigate(["/books"])
 						}
-					},
+					}, */
 				],
 			},
 			{
@@ -71,8 +74,15 @@ export class MenuComponent implements OnInit {
 		];
 	}
 	openNew() {
-
-		this.router.navigate(['/notes']);
+		const note: NotesWithoutId = {
+			content: '',
+			title: '',
+			autor: this.authService.getCurrentUser()?.uid!,
+		};
+		this.notesService.createNote(note).subscribe((note) => {
+			this.notesService.recentNotes.update((notes) => [...notes, note]);
+			this.router.navigate(['notes', note._id]);
+		});
 	}
 
 	async logout() {

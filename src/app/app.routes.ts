@@ -14,6 +14,7 @@ export const routes: Routes = [
 		...canActivate(() => redirectUnauthorizedTo(['/login'])),
 		children: [
 			{ path: 'home', component: HomeComponent },
+			{ path: 'notes/:id', component: NotesComponent },
 			{ path: 'notes', component: NotesComponent },
 			{ path: 'books', component: BooksComponent },
 			{ path: '', redirectTo: 'home', pathMatch: 'full' },
